@@ -6,11 +6,16 @@
 }
 body{
     background-color: #69B794 ;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    
+    
 }
-.container{
+.container-fluid{
     background-color: #FBF595;
-    width: 100%;
+    width: 90%;
     border-radius: 20px;
+    grid-row: 2;
     
     
 }
