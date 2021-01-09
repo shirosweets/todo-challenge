@@ -1,8 +1,13 @@
 from django.shortcuts import render
 
 from .models import Task
+from rest_framework import viewsets          
+from .serializers import TaskSerializer      
 
-#Traemos las tareas para mostrarlas
 
-def index(request):
-    return render(request, 'todo/index.html')
+#Viewsets nos facilita las tareas de CRUD
+class TaskView(viewsets.ModelViewSet):       
+  serializer_class = TaskSerializer          
+  queryset = Task.objects.all()              
+
+
