@@ -10,4 +10,7 @@ class TaskView(viewsets.ModelViewSet):
   serializer_class = TaskSerializer          
   queryset = Task.objects.all()              
 
+#Front
+def index(request):
+    return render(request, 'todo/index.html')
 
