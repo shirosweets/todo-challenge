@@ -1,4 +1,26 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+body{
+    background-color: #69B794 ;
+}
 .container{
-    background-color: yellowgreen;
+    background-color: #FBF595;
     width: 100%;
+    border-radius: 20px;
+    
+    
+}
+
+.agregarTarea{
+    text-decoration: none;
+    color: black;
+}
+
+.agregarTarea:hover{
+    text-decoration: underline;
+    color: black;
 }
