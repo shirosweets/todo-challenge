@@ -6,6 +6,8 @@ from .serializers import TaskSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
+import requests
+
 @api_view(['GET'])
 def apiOverview(request):
   api_urls = {
@@ -17,12 +19,6 @@ def apiOverview(request):
   }
   return  Response(api_urls)
 
-
-#Viewsets nos facilita las tareas de CRUD
-'''class TaskView(viewsets.ModelViewSet):       
-  serializer_class = TaskSerializer          
-  queryset = Task.objects.all()              
-'''
 
 #Obtenemos todas las tareas
 @api_view(['GET'])
@@ -76,9 +72,10 @@ def delete_task(request, pk):
   
 
 
-#Front
+#FrontEnd
 def index(request):
-    tasks = TaskView.queryset
+    tasks = requests.get('http://localhost:8000/api/task-list')
+    tasks = tasks.json()
     context = {
     'tasks' : tasks
   }
