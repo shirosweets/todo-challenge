@@ -1,18 +1,18 @@
 
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework import routers
 from todo import views
 
 
-#Con esto logramos --> /api/tasks/ traer todas las tareas
-#Con api/tasks/id traemos una especifica
-router = routers.DefaultRouter()
-router.register(r'tasks', views.TaskView, 'task')
 
 
 urlpatterns = [
+    path('api/task-list/', views.task_list, name = 'task-list'),
     path('todo/', include('todo.urls')),
-    path('api/', include(router.urls)),
+    path('api/task-detail/<int:pk>/', views.get_a_task, name = 'task-detail'),
+    path('api/task-create/', views.create_task, name = 'task-create'),
+    path('api/task-update/<int:pk>/', views.update_task, name = 'task-update'),
+    path('api/task-delete/<int:pk>/', views.delete_task, name = 'task-delete'),
+    path('api/', views.apiOverview, name='api-overview'),
     path('admin/', admin.site.urls),
 ]
