@@ -16,32 +16,38 @@
         <div class="row">
             <div class="col">
                 
-                <iframe src="https://giphy.com/embed/l4pTqyJ8XMhLZ3ScE" width="350" height="350" frameBorder="0" class="giphy-embed" allowFullScreen
+                <iframe src="https://giphy.com/embed/l4pTqyJ8XMhLZ3ScE" width="350" height="400" frameBorder="0" class="giphy-embed" allowFullScreen
                 ></iframe>
             
             </div>
             
             <div class="col-9" >
-                <h1>ToDo List</h1>
-                <div class="input-group input-group-sm mb-3">
+                <h1><b>ToDo List</b></h1>
+                
+                     
+                    <form class="input-group input-group-md mb-3 w-50" action="{%url 'task-detail' %}" method="GET">
+                        {% csrf_token %}
+                        <label for="content_text" hidden>Buscar tarea</label>
+                        <input type="text" class="form-control outline-secondary" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                        placeholder="Busca tus notas" name="content_text" >
                     
-                    <input type="text" dasdclass="form-control outline-secondary" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                    placeholder="Busca tus notas">
-                    
-                  </div>
+                        <button type="submit"  class="btn btn-secondary ">🔍</button> 
+                  
+                </form>
+
                   <div class="row">
                   <form action="{% url 'task-create' %}" method="POST" class="row">
-                        {% csrf_token %}
+                        {% csrf_token %} 
                         <div class="col-auto">
                             <label for="content_text" class="visually-hidden">Ingresa una nota</label>
                             <input type="text" id="content_text" name="content_text"
                             class="form-control" placeholder="Ingresa una nota">
                           </div>
-                        </div>
+                        
                         <div class="col-auto">
                           <button type="submit" class="btn btn-primary mb-3">Agregar</button>
                         </div>
-                      
+                    </div>
                 </form>
             
                 <div class="row" id="tareas">
@@ -49,11 +55,13 @@
                         {% for task in tasks %}
                         <p>
                         {%if task.completed%}
-                            <strike>{{task.content_text}}</strike>
+                            <strike>{{task.content_text}} </strike>
                         {%else%}
                             {{task.content_text}}
+                            {{task.pub_date}}
                         {%endif%}
-                            <a type="button" href="{% url 'task-delete' task.id %}" class="btn btn-danger ">X</a></p> 
+                        <a type="button" href="{% url 'task-update' task.id %}" class="btn btn-secondary ">✏️</a>    
+                        <a type="button" href="{% url 'task-delete' task.id %}" class="btn btn-danger ">X</a></p> 
                         {% endfor %}
                     {%else%}
                         <p>No hay tareas</p>
