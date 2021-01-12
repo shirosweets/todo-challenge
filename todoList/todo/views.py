@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import Task
 from rest_framework import viewsets          
@@ -8,6 +8,8 @@ from rest_framework.decorators import api_view
 
 import requests
 
+
+
 @api_view(['GET'])
 def apiOverview(request):
   api_urls = {
@@ -15,7 +17,7 @@ def apiOverview(request):
     'Detail': '/task-detail/<int:pk>/',
     'Create': '/task-create',
     'Update': '/task-update/<int:pk>',
-    'Delete': '/task-delete/<int:pk>',
+    'Delete': '/task-delete/<str:pk>',
   }
   return  Response(api_urls)
 
@@ -44,9 +46,11 @@ def get_a_task(request, pk):
 @api_view(['POST'])
 def create_task(request):
   serializer = TaskSerializer(data=request.data)
+  
   if serializer.is_valid():
     serializer.save()
-  return Response(serializer.data)
+  #Para una implementacion de API cambiar a return Response(serializer.data)
+  return redirect('/todo')
 
 #Actualizamos una tarea
 
@@ -60,14 +64,17 @@ def update_task(request, pk):
 
 #Borramos una tarea
 
-@api_view(['DELETE'])
+@api_view(['GET','DELETE'])
 def delete_task(request, pk):
-  try:
-    task = Task.objects.get(id=pk)
-    task.delete()
-    return Response("Se borro la tarea correctamente", status=200)
-  except:
-    return Response("La tarea no existe", status=400)
+  #try:
+  task = Task.objects.get(id=pk)
+  task.delete()
+    #Para una implementacion de API descomentar el retorno de response
+  return redirect('/todo')  
+    #return Response("Se borro la tarea correctamente", status=200)
+  #except:
+    
+    #return Response("La tarea no existe", status=400)
   
   
 
@@ -76,8 +83,11 @@ def delete_task(request, pk):
 def index(request):
     tasks = requests.get('http://localhost:8000/api/task-list')
     tasks = tasks.json()
+    
+    
     context = {
-    'tasks' : tasks
+    'tasks' : tasks,
+    
   }
     return render(request, 'todo/index.html', context)
 

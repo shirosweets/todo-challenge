@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Task(models.Model):
-    pub_date = models.DateTimeField('fecha de publicacion')
+    pub_date = models.DateTimeField('fecha de publicacion', auto_now_add = True)
     content_text = models.CharField(max_length=200)
     completed = models.BooleanField(default = False)
 

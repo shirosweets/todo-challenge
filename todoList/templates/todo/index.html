@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet"  href="{%  static  'css/style.css' now "U" %}">
     <title>ToDo App</title>
 </head>
@@ -28,15 +30,36 @@
                     
                   </div>
                   <div class="row">
-                    <a class="agregarTarea" href="">
-                        + Agrega una tarea
-                    </a> 
-                </div>
+                  <form action="{% url 'task-create' %}" method="POST" class="row">
+                        {% csrf_token %}
+                        <div class="col-auto">
+                            <label for="content_text" class="visually-hidden">Ingresa una nota</label>
+                            <input type="text" id="content_text" name="content_text"
+                            class="form-control" placeholder="Ingresa una nota">
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <button type="submit" class="btn btn-primary mb-3">Agregar</button>
+                        </div>
+                      
+                </form>
+            
                 <div class="row" id="tareas">
-                    {% for task in tasks %}
-                       <p> {{task.content_text}} <button type="button" class="btn btn-danger ">X</button></p> 
-                    {% endfor %}
+                    {%if tasks%}
+                        {% for task in tasks %}
+                        <p>
+                        {%if task.completed%}
+                            <strike>{{task.content_text}}</strike>
+                        {%else%}
+                            {{task.content_text}}
+                        {%endif%}
+                            <a type="button" href="{% url 'task-delete' task.id %}" class="btn btn-danger ">X</a></p> 
+                        {% endfor %}
+                    {%else%}
+                        <p>No hay tareas</p>
+                    {%endif%} 
                 </div>
+            </div>
             </div>
         </div>
         
