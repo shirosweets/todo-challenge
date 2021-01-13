@@ -81,7 +81,7 @@ def create_task(request):
 
 #Actualizamos una tarea
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 def update_task(request, pk):
   task = Task.objects.get(id=pk)
   serializer = TaskSerializer(instance = task, data=request.data)
@@ -90,15 +90,25 @@ def update_task(request, pk):
   return Response(serializer.data)
 
 
-#Completamos una tarea de manera mas rapida
+#Completamos o descompletamos una tarea de manera mas rapida
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 def complete_task(request, pk):
   task = Task.objects.get(id=pk)
-  serializer = TaskSerializer(instance = task, data=request.data)
+  new_data = request.data
+  if(task.completed == False):
+    new_data["completed"] = True
+  else:
+    new_data["completed"] = False
+  serializer = TaskSerializer(instance = task, data=new_data, partial = True)
+  logger.error(serializer.is_valid())
+  logger.error(serializer.errors)
+  
   if serializer.is_valid():
     serializer.save()
-  return Response(serializer.data)
+  return redirect('/todo')
+  #Para API
+  #return Response(serializer.data)
 
 #Borramos una tarea
 

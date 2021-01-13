@@ -12,14 +12,20 @@ body{
 }
 
 .container-fluid{
+    min-width: 300px;
     background-color: #FBF595;
     width: 70%;
     border-radius: 20px;
-
-    
+    display: grid;
+    grid-template-columns: repeat(4,1fr);    
     
 }
 
+.caja-notas{
+    width: 100%;
+
+    grid-column: 2/4;
+}
 .agregarTarea{
     text-decoration: none;
     color: black;
@@ -28,4 +34,9 @@ body{
 .agregarTarea:hover{
     text-decoration: underline;
     color: black;
+}
+
+p:hover{
+    text-decoration: line-through;
+    
 }

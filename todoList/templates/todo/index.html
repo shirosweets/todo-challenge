@@ -12,7 +12,8 @@
 </head>
 <body>
     
-    <div class="container-fluid">
+    <div class="container-fluid mb-5 mt-5">
+        <div class="caja-notas">
         <div class="row">
             <div class="col">
                 
@@ -25,7 +26,7 @@
                 <h1><b>ToDo List</b></h1>
                 
                      
-                    <form class="input-group input-group-md mb-3 w-50" action="{%url 'task-detail' %}" method="GET">
+                    <form class="input-group input-group-md mb-3 w-80" action="{%url 'task-detail' %}" method="GET">
                         {% csrf_token %}
                         <label for="content_text" hidden>Buscar tarea</label>
                         <input type="text" class="form-control outline-secondary" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
@@ -41,7 +42,7 @@
                         <div class="col-auto">
                             <label for="content_text" class="visually-hidden">Ingresa una nota</label>
                             <input type="text" id="content_text" name="content_text"
-                            class="form-control" placeholder="Ingresa una nota">
+                            class="form-control" placeholder="Que vas a hacer hoy?">
                           </div>
                         
                         <div class="col-auto">
@@ -53,7 +54,7 @@
                 <div class="row" id="tareas">
                     {%if tasks%}
                         {% for task in tasks %}
-                        <p>
+                        <a href="{% url 'task-complete' task.id %}">
                         {%if task.completed%}
                             <strike>{{task.content_text}} </strike>
                         {%else%}
@@ -61,7 +62,8 @@
                             {{task.pub_date}}
                         {%endif%}
                         <a type="button" href="{% url 'task-update' task.id %}" class="btn btn-secondary ">✏️</a>    
-                        <a type="button" href="{% url 'task-delete' task.id %}" class="btn btn-danger ">X</a></p> 
+                        <a type="button" href="{% url 'task-delete' task.id %}" class="btn btn-danger ">X</a>
+                </a> 
                         {% endfor %}
                     {%else%}
                         <p>No hay tareas</p>
@@ -72,7 +74,7 @@
         </div>
         
         
-        
+    </div>
     </div>
 </body>
 </html>
