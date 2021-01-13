@@ -32,6 +32,7 @@
                         placeholder="Busca tus notas" name="content_text" autocomplete="off">
                     
                         <button type="submit"  class="btn btn-secondary ">🔍</button> 
+                        <a class="btn btn-dark" href="/todo">⬅</a> 
                   
                 </form>
 
@@ -55,7 +56,7 @@
                     
                     {%if tasks%}
                         {% for task in tasks %}
-                        <div class="card mb-2">
+                        <div class="card mb-2" id="{{task.id}}">
                             <div class="card-body ">
                         
                         <a class="tarea" href="{% url 'task-complete' task.id %}">
@@ -71,7 +72,9 @@
                             Fecha: {{task.pub_date}}
                         {%endif%}
                         <div class="float-right" >
-                        <a type="button" href="{% url 'task-update' task.id %}" class="btn btn-secondary ">✏️</a>    
+                        <a type="button" class="btn btn-secondary "
+                        
+                        id="{{task.id}}" onclick="openModal(this)">✏️</a>    
                         <a type="button" href="{% url 'task-delete' task.id %}" class="btn btn-danger ">X</a>
                     </div>
                 </a>
@@ -90,5 +93,95 @@
         
     </div>
     </div>
+    <div class="bg-modal">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">
+                Actualizar tarea
+            </h5>
+        </div>
+        <div class="mb-3">
+            <label for="task_update" class="form-label" >Ingrese la correccion</label>
+            <input type="text" class="form-control" id="task_update" aria-describedby="emailHelp">
+            <a type="submit" class="btn btn-primary" onclick="updateTask(this)">Actualizar</a>
+            <a type="submit" class="btn btn-danger" onclick="closeModal()">Cancelar</a>
+          </div>
+          <div id="mensaje"></div>
+        <div class="close" onclick="closeModal()"> + </div>
+        </di>
+        </div>
 </body>
+<script>
+        function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+        
+        function openModal(elemento) {
+            id_nota = elemento.id
+            modal = document.getElementsByClassName("bg-modal")[0]
+            modal.style.display ="flex";
+            modal.id=id_nota
+            //console.log(modal.id)
+    };
+
+
+
+    function closeModal() {
+        document.querySelector(".bg-modal").style.display ="none";
+        window.location.reload()
+    };
+
+    function updateTask(elemento){
+        console.log('actualizado')
+        let id_tarea = elemento.parentElement.parentElement.parentElement.id
+        console.log(id_tarea)
+        let nuevo_texto = elemento.parentElement.getElementsByClassName("form-control")[0].value
+        let data_a_enviar = {
+            
+            "content_text": nuevo_texto
+        }
+        console.log(JSON.stringify(data_a_enviar))
+        
+        fetch(`http://localhost:8000/api/task-update/${id_tarea}/`,{
+            
+            method: 'POST',      
+            headers: {
+                'X-CSRFToken':getCookie('csrftoken'),
+                'Content-Type':'application/json',
+                'Accept': 'application/json'
+
+        },
+        body:JSON.stringify(data_a_enviar)
+            
+        }).then(response=>{
+            if (response.status ===200){
+                let mensaje_correcto = document.createElement("div")
+                mensaje_correcto.classList.add('alert')
+                mensaje_correcto.classList.add('alert-success')
+                mensaje_correcto.innerText = "Actualizacion realizada"
+                document.getElementById('mensaje').appendChild(mensaje_correcto)
+            }
+        }).catch(err=>{
+            let mensaje_incorrecto = document.createElement("div")
+                mensaje_correcto.classList.add('alert')
+                mensaje_correcto.classList.add('alert-warning')
+                mensaje_correcto.innerText = "No se pudo actualizar la nota"
+                document.getElementById('mensaje').appendChild(mensaje_incorrecto)
+        })
+
+    }
+</script>
 </html>

@@ -151,8 +151,18 @@ LOGGING = {
 
 CORS_ORIGIN_WHITELIST = (
      'https://localhost:3000',
+     'http://localhost:8000'
  )
- 
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 VENV_PATH = os.path.dirname(BASE_DIR)

@@ -70,8 +70,7 @@ def get_a_task(request):
 @api_view(['POST'])
 def create_task(request):
   serializer = TaskSerializer(data=request.data)
-  serializer.is_valid()
-  logger.error(serializer.errors)
+
   if serializer.is_valid():
     serializer.save()
     
@@ -84,7 +83,11 @@ def create_task(request):
 @api_view(['POST', 'GET'])
 def update_task(request, pk):
   task = Task.objects.get(id=pk)
+  
   serializer = TaskSerializer(instance = task, data=request.data)
+  serializer.is_valid()
+  logger.error('Putoooooooooooooooo')
+  logger.error(request.data)
   if serializer.is_valid():
     serializer.save()
   return Response(serializer.data)
