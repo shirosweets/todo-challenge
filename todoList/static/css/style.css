@@ -23,7 +23,6 @@ body{
 
 .caja-notas{
     width: 100%;
-
     grid-column: 2/4;
 }
 .agregarTarea{
@@ -36,7 +35,40 @@ body{
     color: black;
 }
 
-p:hover{
+.tarea{
+    text-decoration: none;
+    color: black;
+}
+
+.tarea:hover{
+    color:black;
     text-decoration: line-through;
     
+}
+
+.card-body{
+    font-size: 18px;
+}
+
+
+.gif{
+    width: 100%;
+    text-align: left;
+}
+
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 480px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: portrait) 
+  {
+    *{font-size: 14px};
+    .container-fluid{
+        display:grid;
+        grid-template: repeat(1,1fr);
+    }
+    .caja-notas{
+        grid-column: 1/5;
+        
+    }
 }

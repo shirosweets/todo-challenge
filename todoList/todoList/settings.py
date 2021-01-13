@@ -148,7 +148,6 @@ LOGGING = {
     },
 }
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 CORS_ORIGIN_WHITELIST = (
      'https://localhost:3000',

@@ -15,10 +15,9 @@
     <div class="container-fluid mb-5 mt-5">
         <div class="caja-notas">
         <div class="row">
-            <div class="col">
+            <div class="col gif">
                 
-                <iframe src="https://giphy.com/embed/l4pTqyJ8XMhLZ3ScE" width="350" height="400" frameBorder="0" class="giphy-embed" allowFullScreen
-                ></iframe>
+                <iframe src="https://giphy.com/embed/dWOKEQ5ewh94RJLemj" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
             
             </div>
             
@@ -30,7 +29,7 @@
                         {% csrf_token %}
                         <label for="content_text" hidden>Buscar tarea</label>
                         <input type="text" class="form-control outline-secondary" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-                        placeholder="Busca tus notas" name="content_text" >
+                        placeholder="Busca tus notas" name="content_text" autocomplete="off">
                     
                         <button type="submit"  class="btn btn-secondary ">🔍</button> 
                   
@@ -42,7 +41,8 @@
                         <div class="col-auto">
                             <label for="content_text" class="visually-hidden">Ingresa una nota</label>
                             <input type="text" id="content_text" name="content_text"
-                            class="form-control" placeholder="Que vas a hacer hoy?">
+                            class="form-control" placeholder="Que vas a hacer hoy?"
+                            autocomplete="off">
                           </div>
                         
                         <div class="col-auto">
@@ -52,18 +52,32 @@
                 </form>
             
                 <div class="row" id="tareas">
+                    
                     {%if tasks%}
                         {% for task in tasks %}
-                        <a href="{% url 'task-complete' task.id %}">
+                        <div class="card mb-2">
+                            <div class="card-body ">
+                        
+                        <a class="tarea" href="{% url 'task-complete' task.id %}">
                         {%if task.completed%}
-                            <strike>{{task.content_text}} </strike>
+                            <strike class="completado">{{task.content_text}}
+                                <br>
+                                Fecha: {{task.pub_date}} </strike>
+
                         {%else%}
                             {{task.content_text}}
-                            {{task.pub_date}}
+                            <br>
+                            
+                            Fecha: {{task.pub_date}}
                         {%endif%}
+                        <div class="float-right" >
                         <a type="button" href="{% url 'task-update' task.id %}" class="btn btn-secondary ">✏️</a>    
                         <a type="button" href="{% url 'task-delete' task.id %}" class="btn btn-danger ">X</a>
-                </a> 
+                    </div>
+                </a>
+            
+        </div>
+        </div> 
                         {% endfor %}
                     {%else%}
                         <p>No hay tareas</p>
