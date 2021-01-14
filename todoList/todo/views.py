@@ -29,6 +29,7 @@ def apiOverview(request):
 @api_view(['GET'])
 def task_list(request):
   tasks = Task.objects.all()
+  tasks=tasks.order_by('-pub_date')
   serializer = TaskSerializer(tasks, many=True)
   return Response(serializer.data)
 
