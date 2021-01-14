@@ -51,5 +51,20 @@ Y listo, con cualquiera de las opciones anteriores ahora tenemos corriendo la ap
 
 
 # ToDo App
-
+Pantalla principal:
 ![](https://github.com/danilodiez/todo-challenge/blob/main/imagenesTemplate/principal.jpeg)
+
+Podemos buscar una nota por su contenido
+![](https://github.com/danilodiez/todo-challenge/blob/main/imagenesTemplate/busqueda.jpeg)
+
+Podemos agregar una nota nueva
+![](https://github.com/danilodiez/todo-challenge/blob/main/imagenesTemplate/agregar.jpeg)
+
+Podemos marcar las notas como completadas, seleccionandolas. O tambien, borrarlas con la X
+![](https://github.com/danilodiez/todo-challenge/blob/main/imagenesTemplate/completado.jpeg)
+
+Podemos actualizar las notas
+![](https://github.com/danilodiez/todo-challenge/blob/main/imagenesTemplate/actualizacion.jpeg)
+
+Finalmente, se puede observar el panel de control de la API con la informacion necesaria
+![](https://github.com/danilodiez/todo-challenge/blob/main/imagenesTemplate/api.jpeg)
