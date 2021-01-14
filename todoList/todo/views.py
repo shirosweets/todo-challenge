@@ -33,8 +33,9 @@ def task_list(request):
   serializer = TaskSerializer(tasks, many=True)
   return Response(serializer.data)
 
-#Obtenemos una tarea
 
+
+#Obtenemos una tarea
 @api_view(['GET'])
 def get_a_task(request):
   txt = request.GET['content_text']
@@ -48,7 +49,7 @@ def get_a_task(request):
       return render(request, 'todo/index.html',context)
     
     else:
-      #A pesar de que este else es innecesario, la app no funciona sino
+      
       return redirect('http://localhost:8000/todo/')
 
   else:
@@ -86,9 +87,6 @@ def update_task(request, pk):
   task = Task.objects.get(id=pk)
   
   serializer = TaskSerializer(instance = task, data=request.data)
-  serializer.is_valid()
-  logger.error('Putoooooooooooooooo')
-  logger.error(request.data)
   if serializer.is_valid():
     serializer.save()
   return Response(serializer.data)
@@ -105,8 +103,6 @@ def complete_task(request, pk):
   else:
     new_data["completed"] = False
   serializer = TaskSerializer(instance = task, data=new_data, partial = True)
-  logger.error(serializer.is_valid())
-  logger.error(serializer.errors)
   
   if serializer.is_valid():
     serializer.save()
