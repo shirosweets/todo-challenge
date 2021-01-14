@@ -46,8 +46,9 @@ $ docker-compose up
 ```
 
 Y listo, con cualquiera de las opciones anteriores ahora tenemos corriendo la aplicacion en:
-[http://localhost:8000/todo/](http://localhost:8000/todo/) - Para el fronEnd
-[http://localhost:8000/api](http://localhost:8000/api/) - Para el backend y utilizar la API
+
+- [http://localhost:8000/todo/](http://localhost:8000/todo/) - Para el fronEnd
+- [http://localhost:8000/api](http://localhost:8000/api/) - Para el backend y utilizar la API
 
 
 # ToDo App
