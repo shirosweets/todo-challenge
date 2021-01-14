@@ -34,6 +34,11 @@ Ahora tenemos todo listo para ejecutar la aplicacion en el entorno
 $ python manage.py runserver
 ```
 
+Tambien podemos correr tests en el funcionamiento de la API
+```sh
+$ ./manage.py test
+```
+
 ## Otra opcion es utilizar el contenedor de Docker
 Para ello debemos tener instalado Docker y docker-compose.
 Simplemente ejecutamos
